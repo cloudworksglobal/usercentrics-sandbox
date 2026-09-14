@@ -17,16 +17,6 @@
           fontFamily: {
             sans: ['Inter', 'sans-serif'],
             mono: ['Fira Code', 'monospace'],
-          },
-          colors: {
-            brand: {
-              dark: '#0B0F19',
-              card: '#111827',
-              border: '#1F2937',
-              accent: '#3B82F6',
-              success: '#10B981',
-              danger: '#EF4444',
-            }
           }
         }
       }
@@ -52,9 +42,10 @@
     /* A1 BUG RULE (Toggleable via JS) */
     .bug-a1-active input[type="checkbox"] { visibility: hidden !important; }
     
-    /* C1 SPECIFICITY DEMO RULE */
-    #banner-demo .btn-c1 { background-color: #2563EB !important; color: white; }
-    .btn-primary-override { background-color: #EF4444 !important; color: white; }
+    /* C1 SPECIFICITY DEMO RULES */
+    #banner-demo .btn { background-color: #2563EB; color: white; } /* Specificity (0,1,1,0) - WINS BY DEFAULT */
+    .btn-primary { background-color: #EF4444; color: white; }       /* Specificity (0,0,1,0) - LOSES */
+    #banner-demo.fix-c1 .btn-primary { background-color: #EF4444 !important; } /* Minimal CSS Fix */
   </style>
 </head>
 <body class="font-sans antialiased min-h-screen pb-12">
@@ -156,15 +147,22 @@
 
       <!-- SECTION C1: CSS SPECIFICITY OVERRIDE -->
       <div class="glass-card rounded-2xl p-6">
-        <span class="text-xs font-semibold uppercase tracking-wider text-purple-400 bg-purple-500/10 px-2.5 py-1 rounded-md border border-purple-500/20">Section C1</span>
-        <h3 class="text-lg font-semibold text-white mt-2">CSS Specificity Conflict</h3>
+        <div class="flex justify-between items-start mb-4">
+          <div>
+            <span class="text-xs font-semibold uppercase tracking-wider text-purple-400 bg-purple-500/10 px-2.5 py-1 rounded-md border border-purple-500/20">Section C1</span>
+            <h3 class="text-lg font-semibold text-white mt-2">CSS Specificity Conflict</h3>
+          </div>
+          <button id="toggleC1Btn" onclick="toggleFixC1()" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-blue-500/10 text-blue-400 border border-blue-500/20 hover:bg-blue-500/20 transition">
+            Apply Specificity Fix
+          </button>
+        </div>
         <p class="text-xs text-gray-400 mb-4">
           Visualization of the rule conflict where <code class="text-purple-300 font-mono">#banner .btn</code> (specificity 0,1,1,0) overrides <code class="text-purple-300 font-mono">.btn-primary</code> (0,0,1,0).
         </p>
 
         <div class="p-4 rounded-xl bg-gray-900/80 border border-gray-800 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div id="banner-demo">
-            <button class="btn-c1 btn-primary-override px-5 py-2.5 rounded-xl font-bold text-xs shadow-md transition">
+            <button id="c1DemoButton" onclick="clickC1Demo()" class="btn btn-primary px-5 py-2.5 rounded-xl font-bold text-xs shadow-md transition">
               Accept Button
             </button>
           </div>
@@ -248,7 +246,7 @@
 
   <!-- JAVASCRIPT LOGIC -->
   <script>
-    // COOKIEBOT MOCK OBJECT (SECTION D3)
+    // COOKIEBOT MOCK OBJECT
     window.Cookiebot = {
       consent: { marketing: false }
     };
@@ -274,7 +272,6 @@
 
     // SECTION A1 INTERACTION LOGIC
     let isA1BugActive = false;
-
     function toggleBugA1() {
       isA1BugActive = !isA1BugActive;
       const body = document.body;
@@ -335,6 +332,30 @@
         output.className = 'mt-3 text-xs font-mono text-red-400 bg-red-500/10 p-2.5 rounded-lg border border-red-500/20';
         output.innerHTML = 'Invalid Regex Syntax';
       }
+    }
+
+    // SECTION C1 SPECIFICITY TOGGLE LOGIC
+    let isC1Fixed = false;
+    function toggleFixC1() {
+      isC1Fixed = !isC1Fixed;
+      const container = document.getElementById('banner-demo');
+      const btn = document.getElementById('toggleC1Btn');
+
+      if (isC1Fixed) {
+        container.classList.add('fix-c1');
+        btn.innerText = "Remove Specificity Fix";
+        btn.className = "px-3 py-1.5 rounded-lg text-xs font-semibold bg-green-500/10 text-green-400 border border-green-500/20 hover:bg-green-500/20 transition";
+        logToUI("C1 Fix Applied: Forced specificity resolution. Button renders RED.");
+      } else {
+        container.classList.remove('fix-c1');
+        btn.innerText = "Apply Specificity Fix";
+        btn.className = "px-3 py-1.5 rounded-lg text-xs font-semibold bg-blue-500/10 text-blue-400 border border-blue-500/20 hover:bg-blue-500/20 transition";
+        logToUI("C1 Default State: ID Selector (#banner .btn) wins. Button renders BLUE.");
+      }
+    }
+
+    function clickC1Demo() {
+      logToUI(`C1 Button Clicked: Currently rendering ${isC1Fixed ? 'RED' : 'BLUE'} due to CSS specificity rules.`);
     }
 
     // SECTION D3 EVENT LISTENER IMPLEMENTATION
