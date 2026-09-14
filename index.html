@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -34,7 +34,6 @@
   </script>
 
   <style>
-    /* Estilos personalizados y efectos Glassmorphism */
     body { background-color: #0B0F19; color: #F3F4F6; }
     .glass-card {
       background: rgba(17, 24, 39, 0.7);
@@ -50,11 +49,11 @@
     .console-scrollbar::-webkit-scrollbar-track { background: #0b0f19; }
     .console-scrollbar::-webkit-scrollbar-thumb { background: #1f2937; border-radius: 3px; }
 
-    /* REGLA DEL BUG A1 (Toggleable vía JS) */
+    /* A1 BUG RULE (Toggleable via JS) */
     .bug-a1-active input[type="checkbox"] { visibility: hidden !important; }
     
-    /* REGLA C1 SPECIFICITY DEMO */
-    #banner-demo .btn-c1 { background-color: #2563EB !important; color: white; } /* Especificidad #ID .clase (gana) */
+    /* C1 SPECIFICITY DEMO RULE */
+    #banner-demo .btn-c1 { background-color: #2563EB !important; color: white; }
     .btn-primary-override { background-color: #EF4444 !important; color: white; }
   </style>
 </head>
@@ -89,17 +88,17 @@
   <!-- MAIN CONTAINER -->
   <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-8 grid grid-cols-1 lg:grid-cols-12 gap-8">
 
-    <!-- LEFT COLUMN: CASOS INTERACTIVOS (8 cols) -->
+    <!-- LEFT COLUMN: INTERACTIVE CASE STUDIES (8 cols) -->
     <div class="lg:col-span-8 space-y-6">
 
       <!-- HERO INTRO -->
       <div class="glass-card rounded-2xl p-6 relative overflow-hidden">
         <div class="absolute -right-10 -bottom-10 w-40 h-40 bg-blue-500/10 rounded-full blur-3xl pointer-events-none"></div>
         <h2 class="text-xl font-bold text-white mb-2 flex items-center gap-2">
-          <i class="fa-solid fa-vial text-blue-400"></i> Entorno de Pruebas Técnico en Vivo
+          <i class="fa-solid fa-vial text-blue-400"></i> Live Technical Testbed
         </h2>
         <p class="text-sm text-gray-400 leading-relaxed">
-          Esta plataforma reproduce interactivamente los escenarios técnicos planteados en la evaluación de Usercentrics. Permite validar diagnósticos de CSS, comportamientos de eventos en JavaScript y reglas de compatibilidad de CMS en tiempo real.
+          This platform interactively reproduces the technical scenarios presented in the Usercentrics case study. It allows real-time validation of CSS diagnostics, JavaScript event handling, Regex evaluation, and CMS compatibility behaviors.
         </p>
       </div>
 
@@ -107,37 +106,60 @@
       <div class="glass-card rounded-2xl p-6">
         <div class="flex justify-between items-start mb-4">
           <div>
-            <span class="text-xs font-semibold uppercase tracking-wider text-blue-400 bg-blue-500/10 px-2.5 py-1 rounded-md border border-blue-500/20">Sección A1</span>
-            <h3 class="text-lg font-semibold text-white mt-2">Prueba de Interrupción del Banner por CSS</h3>
+            <span class="text-xs font-semibold uppercase tracking-wider text-blue-400 bg-blue-500/10 px-2.5 py-1 rounded-md border border-blue-500/20">Section A1</span>
+            <h3 class="text-lg font-semibold text-white mt-2">Banner Interaction CSS Failure Test</h3>
           </div>
           <button id="toggleA1Btn" onclick="toggleBugA1()" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-red-500/10 text-red-400 border border-red-500/20 hover:bg-red-500/20 transition">
-            <i class="fa-solid fa-bug mr-1"></i> Simular Error del Cliente
+            <i class="fa-solid fa-bug mr-1"></i> Simulate Customer Bug
           </button>
         </div>
 
         <p class="text-xs text-gray-400 mb-4">
-          El cliente reporta que el botón "Aceptar" no funciona. La regla CSS global <code class="text-blue-300 font-mono">input[type="checkbox"] { visibility: hidden; }</code> oculta el elemento de captura de consentimientos.
+          The customer reports that the "Accept" button does nothing. The global CSS rule <code class="text-blue-300 font-mono">input[type="checkbox"] { visibility: hidden; }</code> hides the consent capture element.
         </p>
 
-        <!-- Interactive Demo Area -->
         <div id="demoA1Box" class="p-4 rounded-xl bg-gray-900/80 border border-gray-800 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div class="flex items-center space-x-3">
             <input type="checkbox" id="a1Checkbox" class="w-5 h-5 accent-blue-500 cursor-pointer">
             <label for="a1Checkbox" class="text-sm font-medium text-gray-300">Accept Marketing Cookies</label>
           </div>
           <button onclick="clickA1Banner()" class="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-semibold text-xs shadow-lg shadow-blue-600/20 transition flex items-center justify-center gap-2">
-            <i class="fa-solid fa-mouse-pointer"></i> Hacer Clic en "Aceptar"
+            <i class="fa-solid fa-mouse-pointer"></i> Click "Accept"
           </button>
         </div>
         <div id="a1Feedback" class="mt-3 text-xs font-mono hidden"></div>
       </div>
 
+      <!-- SECTION B: REGEX TESTER MODULE -->
+      <div class="glass-card rounded-2xl p-6">
+        <span class="text-xs font-semibold uppercase tracking-wider text-amber-400 bg-amber-500/10 px-2.5 py-1 rounded-md border border-amber-500/20">Section B</span>
+        <h3 class="text-lg font-semibold text-white mt-2">Live Regex Pattern Tester</h3>
+        <p class="text-xs text-gray-400 mb-4">
+          Test URL matching rules and serial number extractions in real-time.
+        </p>
+
+        <div class="space-y-3">
+          <div>
+            <label class="block text-xs font-medium text-gray-400 mb-1">Target URL / Text String:</label>
+            <input type="text" id="regexInput" value="https://www.domain.com/shoes?page=12" class="w-full bg-gray-900 border border-gray-800 rounded-xl px-3 py-2 text-xs font-mono text-gray-200 focus:outline-none focus:border-blue-500">
+          </div>
+          <div>
+            <label class="block text-xs font-medium text-gray-400 mb-1">Regex Rule Pattern (Section B1 #8):</label>
+            <input type="text" id="regexPattern" value="domain\.com\/shoes\?page=\d+$" class="w-full bg-gray-900 border border-gray-800 rounded-xl px-3 py-2 text-xs font-mono text-blue-400 focus:outline-none focus:border-blue-500">
+          </div>
+          <button onclick="testRegex()" class="px-4 py-2 rounded-xl bg-amber-600 hover:bg-amber-500 text-white font-semibold text-xs transition">
+            Evaluate Regex Match
+          </button>
+        </div>
+        <div id="regexOutput" class="mt-3 text-xs font-mono hidden"></div>
+      </div>
+
       <!-- SECTION C1: CSS SPECIFICITY OVERRIDE -->
       <div class="glass-card rounded-2xl p-6">
-        <span class="text-xs font-semibold uppercase tracking-wider text-purple-400 bg-purple-500/10 px-2.5 py-1 rounded-md border border-purple-500/20">Sección C1</span>
-        <h3 class="text-lg font-semibold text-white mt-2">Conflicto de Especificidad CSS</h3>
+        <span class="text-xs font-semibold uppercase tracking-wider text-purple-400 bg-purple-500/10 px-2.5 py-1 rounded-md border border-purple-500/20">Section C1</span>
+        <h3 class="text-lg font-semibold text-white mt-2">CSS Specificity Conflict</h3>
         <p class="text-xs text-gray-400 mb-4">
-          Visualización del conflicto donde <code class="text-purple-300 font-mono">#banner .btn</code> (especificidad 0,1,1,0) sobreescribe a <code class="text-purple-300 font-mono">.btn-primary</code> (0,0,1,0).
+          Visualization of the rule conflict where <code class="text-purple-300 font-mono">#banner .btn</code> (specificity 0,1,1,0) overrides <code class="text-purple-300 font-mono">.btn-primary</code> (0,0,1,0).
         </p>
 
         <div class="p-4 rounded-xl bg-gray-900/80 border border-gray-800 flex flex-col sm:flex-row items-center justify-between gap-4">
@@ -147,37 +169,37 @@
             </button>
           </div>
           <div class="text-xs text-gray-400 font-mono bg-black/40 p-3 rounded-lg border border-gray-800">
-            <p><span class="text-blue-400">#banner .btn</span> -> Azul (Ganador actual)</p>
-            <p><span class="text-red-400">.btn-primary</span> -> Rojo (Esperado por diseñador)</p>
+            <p><span class="text-blue-400">#banner .btn</span> -> Blue (Current Winner)</p>
+            <p><span class="text-red-400">.btn-primary</span> -> Red (Expected by Designer)</p>
           </div>
         </div>
       </div>
 
       <!-- SECTION D3: EVENT LISTENER SIMULATOR -->
       <div class="glass-card rounded-2xl p-6">
-        <span class="text-xs font-semibold uppercase tracking-wider text-emerald-400 bg-emerald-500/10 px-2.5 py-1 rounded-md border border-emerald-500/20">Sección D3</span>
-        <h3 class="text-lg font-semibold text-white mt-2">Manejador de Eventos Asíncronos (JS)</h3>
+        <span class="text-xs font-semibold uppercase tracking-wider text-emerald-400 bg-emerald-500/10 px-2.5 py-1 rounded-md border border-emerald-500/20">Section D3</span>
+        <h3 class="text-lg font-semibold text-white mt-2">Asynchronous JS Event Handler</h3>
         <p class="text-xs text-gray-400 mb-4">
-          Demostración de ejecución asíncrona mediante la escucha del callback de consentimiento <code class="text-emerald-300 font-mono">CookiebotOnConsentReady</code>.
+          Demonstration of asynchronous execution by listening to the consent callback <code class="text-emerald-300 font-mono">CookiebotOnConsentReady</code>.
         </p>
 
         <div class="flex gap-3">
           <button onclick="triggerD3Event()" class="px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs shadow-lg shadow-emerald-600/20 transition flex items-center gap-2">
-            <i class="fa-solid fa-bolt"></i> Disparar Evento Consent Ready
+            <i class="fa-solid fa-bolt"></i> Trigger Consent Ready Event
           </button>
         </div>
       </div>
 
     </div>
 
-    <!-- RIGHT COLUMN: CONSOLA Y PERFIL DE ALFREDO (4 cols) -->
+    <!-- RIGHT COLUMN: TERMINAL & CANDIDATE PROFILE (4 cols) -->
     <div class="lg:col-span-4 space-y-6">
 
-      <!-- CONSOLA EN VIVO -->
+      <!-- LIVE TERMINAL -->
       <div class="glass-card rounded-2xl p-5 border-gray-800">
         <div class="flex items-center justify-between mb-3">
           <h3 class="text-xs font-bold text-gray-400 uppercase tracking-wider flex items-center gap-2">
-            <i class="fa-solid fa-terminal text-blue-400"></i> Terminal Debugger
+            <i class="fa-solid fa-terminal text-blue-400"></i> Debugger Terminal
           </h3>
           <button onclick="clearConsole()" class="text-[10px] text-gray-500 hover:text-gray-300 transition">Clear</button>
         </div>
@@ -187,7 +209,7 @@
         </div>
       </div>
 
-      <!-- CARD DE CANDIDATO: ALFREDO PALMIERI PASO -->
+      <!-- CANDIDATE PROFILE CARD: ALFREDO PALMIERI PASO -->
       <div class="glass-card rounded-2xl p-5 relative overflow-hidden">
         <div class="flex items-center space-x-3 mb-4">
           <div class="w-12 h-12 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center font-bold text-white text-lg shadow-md">
@@ -201,7 +223,7 @@
 
         <div class="space-y-2 text-xs text-gray-300 mb-4">
           <div class="flex items-center gap-2">
-            <i class="fa-solid fa-briefcase text-gray-500 w-4"></i> 14+ años en Industria IT & SaaS
+            <i class="fa-solid fa-briefcase text-gray-500 w-4"></i> 14+ Years in IT & SaaS Industry
           </div>
           <div class="flex items-center gap-2">
             <i class="fa-solid fa-code text-gray-500 w-4"></i> WordPress, Shopify, JS, HTML/CSS
@@ -226,7 +248,7 @@
 
   <!-- JAVASCRIPT LOGIC -->
   <script>
-    // SIMULACIÓN COOKIEBOT OBJECT (SECCIÓN D3)
+    // COOKIEBOT MOCK OBJECT (SECTION D3)
     window.Cookiebot = {
       consent: { marketing: false }
     };
@@ -260,14 +282,14 @@
 
       if (isA1BugActive) {
         body.classList.add('bug-a1-active');
-        btn.innerHTML = '<i class="fa-solid fa-check mr-1"></i> Desactivar Error';
+        btn.innerHTML = '<i class="fa-solid fa-check mr-1"></i> Disable Bug';
         btn.className = 'px-3 py-1.5 rounded-lg text-xs font-semibold bg-green-500/10 text-green-400 border border-green-500/20 hover:bg-green-500/20 transition';
-        logToUI("A1 Bug Activado: Aplicada regla 'input[type=checkbox] { visibility: hidden }'", 'warn');
+        logToUI("A1 Bug Activated: Applied rule 'input[type=checkbox] { visibility: hidden }'", 'warn');
       } else {
         body.classList.remove('bug-a1-active');
-        btn.innerHTML = '<i class="fa-solid fa-bug mr-1"></i> Simular Error del Cliente';
+        btn.innerHTML = '<i class="fa-solid fa-bug mr-1"></i> Simulate Customer Bug';
         btn.className = 'px-3 py-1.5 rounded-lg text-xs font-semibold bg-red-500/10 text-red-400 border border-red-500/20 hover:bg-red-500/20 transition';
-        logToUI("A1 Bug Desactivado: Estilos CSS restaurados a la normalidad.");
+        logToUI("A1 Bug Deactivated: CSS styles restored to normal.");
       }
     }
 
@@ -280,24 +302,49 @@
 
       if (!isVisible) {
         feedback.className = 'mt-3 text-xs font-mono text-red-400 bg-red-500/10 p-2.5 rounded-lg border border-red-500/20';
-        feedback.innerHTML = '<i class="fa-solid fa-xmark mr-1"></i> ERROR: El botón fue presionado pero el checkbox oculto impidió cambiar el estado de consentimiento.';
-        logToUI("A1 Error: Intercepción de evento fallida debido a 'visibility: hidden'", 'error');
+        feedback.innerHTML = '<i class="fa-solid fa-xmark mr-1"></i> ERROR: Button clicked, but hidden checkbox prevented consent state toggle.';
+        logToUI("A1 Error: Event interception failed due to 'visibility: hidden'", 'error');
       } else {
         checkbox.checked = !checkbox.checked;
         feedback.className = 'mt-3 text-xs font-mono text-green-400 bg-green-500/10 p-2.5 rounded-lg border border-green-500/20';
-        feedback.innerHTML = `<i class="fa-solid fa-check mr-1"></i> ÉXITO: Estado de consentimiento cambiado a = ${checkbox.checked}`;
-        logToUI(`A1 Éxito: Consentimiento actualizado. Checked status: ${checkbox.checked}`);
+        feedback.innerHTML = `<i class="fa-solid fa-check mr-1"></i> SUCCESS: Consent state toggled to = ${checkbox.checked}`;
+        logToUI(`A1 Success: Consent updated. Checked status: ${checkbox.checked}`);
+      }
+    }
+
+    // SECTION B REGEX EVALUATOR LOGIC
+    function testRegex() {
+      const str = document.getElementById('regexInput').value;
+      const pattern = document.getElementById('regexPattern').value;
+      const output = document.getElementById('regexOutput');
+      output.classList.remove('hidden');
+
+      try {
+        const re = new RegExp(pattern);
+        const isMatch = re.test(str);
+        if (isMatch) {
+          output.className = 'mt-3 text-xs font-mono text-green-400 bg-green-500/10 p-2.5 rounded-lg border border-green-500/20';
+          output.innerHTML = '<i class="fa-solid fa-check mr-1"></i> MATCH CONFIRMED: Rule matched successfully!';
+          logToUI(`Regex Test SUCCESS: '${pattern}' matched against '${str}'`);
+        } else {
+          output.className = 'mt-3 text-xs font-mono text-red-400 bg-red-500/10 p-2.5 rounded-lg border border-red-500/20';
+          output.innerHTML = '<i class="fa-solid fa-xmark mr-1"></i> NO MATCH: String does not fit pattern.';
+          logToUI(`Regex Test FAIL: '${pattern}' did not match '${str}'`, 'warn');
+        }
+      } catch (e) {
+        output.className = 'mt-3 text-xs font-mono text-red-400 bg-red-500/10 p-2.5 rounded-lg border border-red-500/20';
+        output.innerHTML = 'Invalid Regex Syntax';
       }
     }
 
     // SECTION D3 EVENT LISTENER IMPLEMENTATION
     window.addEventListener('CookiebotOnConsentReady', function() {
       window.Cookiebot.consent.marketing = true;
-      logToUI("D3 Hook Detectado: 'CookiebotOnConsentReady' capturado. dataLayer.push('cookieconsent_marketing') ejecutado correctamente.");
+      logToUI("D3 Hook Detected: 'CookiebotOnConsentReady' caught. dataLayer.push('cookieconsent_marketing') executed successfully.");
     });
 
     function triggerD3Event() {
-      logToUI("D3 Acción: Usuario interactúa con el banner de cookies...");
+      logToUI("D3 Action: User interacts with cookie banner...");
       const event = new CustomEvent('CookiebotOnConsentReady');
       window.dispatchEvent(event);
     }
